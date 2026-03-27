@@ -8,12 +8,14 @@ import Fav from './screen/Favoritos/Favoritos';
 import Resultados from './screen/Resultados/Resultados';
 import NotFound from './screen/NotFound/NotFound';
 import Crear from './screen/CrearCuenta/CrearCuenta';
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
 
 
 function App() {
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
