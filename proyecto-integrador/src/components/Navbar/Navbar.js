@@ -17,7 +17,7 @@ function Navbar() {
         </>
       ) : (
         <>
-          <Link to="/login">Intentelo de nuevo</Link>
+          <Link to="/login">Ingresar usuario</Link>
           <Link to="/register">Crear Cuenta</Link>
         </>
       )}
