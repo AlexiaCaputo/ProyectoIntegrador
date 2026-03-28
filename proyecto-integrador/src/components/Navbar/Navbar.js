@@ -21,7 +21,6 @@ function Navbar() {
           <Link to="/register">Crear Cuenta</Link>
         </>
       )}
-
     </nav>
   );
 }

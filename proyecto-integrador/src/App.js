@@ -28,6 +28,6 @@ function App() {
       </Switch>
       <Footer />
     </>
-  );
+  );   
 }
 export default App;

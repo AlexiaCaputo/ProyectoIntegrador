@@ -1,0 +1,24 @@
+*{
+    box-sizing: border-box;
+}
+
+/* Navbar */
+nav{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: lightblue;
+    align-items: center;
+}
+
+/* Footer */
+
+footer {
+    background-color: lightblue;
+    text-align: center;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
