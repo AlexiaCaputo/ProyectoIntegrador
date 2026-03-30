@@ -23,7 +23,7 @@ function App() {
         <Route path="/peliculas" component={Peli} />
         <Route path="/pelicula/:id" component={Detalle} />
         <Route path="/favoritos" component={Fav} />
-        <Route path="/search" component={Resultados} />
+        <Route path="/search/:busqueda" component={Resultados} />
         <Route path="*" component={NotFound} />
       </Switch>
       <Footer />

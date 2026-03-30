@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import Detalle from "../Detalle/Detalle";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom/cjs/react-router-dom";
 
 class Home extends Component {
   
   constructor(props) {
     super(props);
     this.state = {
-      busqueda: "",
+      value: "",
       populares: [],
       cartel: [], 
       mostrar: null
@@ -32,6 +33,7 @@ class Home extends Component {
 
   evitarSubmit(event) {
     event.preventDefault();
+     this.props.history.push('/resultado/'+this.state.value)
   }
 
   controlarCambios(event) {
@@ -45,7 +47,6 @@ class Home extends Component {
       mostrar: this.state.mostrar === id ? null : id
     });
   }
-
 
   render() {
     return (
@@ -108,4 +109,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);

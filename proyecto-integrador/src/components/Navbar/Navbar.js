@@ -7,8 +7,9 @@ function Navbar() {
 
   return (
     <nav>
-      <h2>Nombre y logo</h2>
       <Link to="/">Home</Link>
+      <img className= 'Logomovie' src='../Logo/Logomovie.webp' alt='logo'></img>
+      <h2>CINEPLAY</h2>
 
       {haySesion ? (
         <>
