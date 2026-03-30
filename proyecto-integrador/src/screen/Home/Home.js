@@ -7,7 +7,8 @@ class Home extends Component {
     this.state = {
       busqueda: "",
       populares: [],
-      cartel: []
+      cartel: [], 
+      mostrar: null
     };
   }
 
@@ -37,6 +38,13 @@ class Home extends Component {
     });
   }
 
+  toggleMostrar(id) {
+    this.setState({
+      mostrar: this.state.mostrar === id ? null : id
+    });
+  }
+
+
   render() {
     return (
       <main>
@@ -51,12 +59,23 @@ class Home extends Component {
 
         <section>
           <h2>Películas más populares</h2>
+
           <div className="card-container">
+
           {this.state.populares.slice(0, 4).map((pelicula) => (
             <article className="character-card" key={pelicula.id}>
-              <img src={`https://image.tmdb.org/t/p/w342${pelicula.poster_path}`} alt={pelicula.title} />
-              <h3>{pelicula.title}</h3>
-            </article>
+    
+            <img
+              src={`https://image.tmdb.org/t/p/w342${pelicula.poster_path}`}
+              alt={pelicula.title}
+            />
+        
+            <h3>{pelicula.title}</h3>
+            <div className={this.state.mostrar === pelicula.id ? "visible" : "oculto"}> <p> {pelicula.overview} </p> </div>
+            <button onClick={() => this.toggleMostrar(pelicula.id)}> {this.state.mostrar === pelicula.id ? "Ver menos" : "Ver más"} </button>
+        
+          </article>
+          
           ))}
           </div>
         </section>
@@ -68,6 +87,8 @@ class Home extends Component {
             <article className="character-card" key={pelicula.id}>
               <img src={`https://image.tmdb.org/t/p/w342${pelicula.poster_path}`} alt={pelicula.title} />
               <h3>{pelicula.title}</h3>
+            <div className={this.state.mostrar === pelicula.id ? "visible" : "oculto"}> <p> {pelicula.overview} </p> </div>
+            <button onClick={() => this.toggleMostrar(pelicula.id)}> {this.state.mostrar === pelicula.id ? "Ver menos" : "Ver más"} </button>
             </article>
           ))}
           </div>

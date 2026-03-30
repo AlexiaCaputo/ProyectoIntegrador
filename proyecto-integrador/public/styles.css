@@ -43,8 +43,8 @@ footer {
 .character-card{
     padding: 10px;
     margin-bottom: 20px;
-    width: 24%;
     background: #fff;
+    width: 350px;
     border-radius: 5px;
     box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15);
     }
@@ -53,3 +53,12 @@ footer {
     width: 100%;
     margin-bottom: 20px;
     }
+
+.oculto {
+        display: none;
+      }
+      
+.visible {
+        display: block;
+        width: 100%;
+      }
