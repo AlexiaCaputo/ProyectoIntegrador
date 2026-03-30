@@ -1,8 +1,8 @@
-function Resultados() {
+function Resultados(props) {
   return (
     <div>
-        <h1>Resultados</h1>
-        {this.props.match.params.busqueda}
+      <h1>Resultados</h1>
+      <p>{props.match.params.busqueda}</p>
     </div>
   );
 }

@@ -20,8 +20,8 @@ class Navbar extends Component {
     return (
       <nav>
         <ul className="nav nav-tabs my-4">
-          {this.state.links.map((link, index) => (
-            <NavbarBebe key={link.nombre + index} datos={link} />
+          {this.state.links.map((link, idx) => (
+            <NavbarBebe key={link.nombre + idx} datos={link} />
           ))}
         </ul>
       </nav>

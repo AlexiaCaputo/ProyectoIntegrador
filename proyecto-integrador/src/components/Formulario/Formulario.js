@@ -23,16 +23,20 @@ class Formulario extends Component {
   render() {
     return (
       <form
-        className="input-busqueda"
+        className="search-form"
         onSubmit={(event) => this.evitarSubmit(event)}
       >
         <input
           type="text"
+          name="searchData"
+          placeholder="Buscar..."
           value={this.state.busqueda}
           onChange={(event) => this.controlarCambios(event)}
-          placeholder="Buscar película..."
         />
-        <input type="submit" value="Buscar" />
+
+        <button type="submit" className="btn btn-success btn-sm">
+          Buscar
+        </button>
       </form>
     );
   }

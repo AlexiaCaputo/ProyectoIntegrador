@@ -15,7 +15,7 @@ import Peliculas from './screen/Peliculas/Peliculas';
 
 function App() {
   return (
-    <>
+    <body className="container">
       <Navbar/>
       <Switch>
         <Route path="/" exact component={Home} />
@@ -28,7 +28,7 @@ function App() {
         <Route path="*" component={NotFound} />
       </Switch>
       <Footer />
-    </>
+    </body>
   );   
 }
 export default App;

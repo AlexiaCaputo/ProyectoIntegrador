@@ -16,32 +16,29 @@ class Peli extends Component {
   };
 
   render() {
-    const { datos } = this.props;
-
+    const datos = this.props.datos;
     return (
-      <article className="character-card">
-        {datos.poster_path ? (
-          <img
-            src={`https://image.tmdb.org/t/p/w342${datos.poster_path}`}
-            alt={datos.title}
-          />
-        ) : (
-          <p>Sin imagen</p>
-        )}
+      <article className="single-card-movie">
 
-        <h3>{datos.title}</h3>
+        <img className="card-img-top" src={`https://image.tmdb.org/t/p/w342${datos.poster_path}`} alt={datos.title} />
 
-        <div className={this.state.mostrar ? "visible" : "oculto"}>
-          <p>{datos.overview}</p>
+        <div className="cardBody">
+          <h5 className="card-title">{datos.title}</h5>
+
+          <div className={this.state.mostrar ? "visible" : "oculto"}>
+            <p className="card-text">{datos.overview}</p>
+          </div>
+
+          <button className="btn btn-primary" onClick={this.toggleMostrar}>
+            {this.state.mostrar ? "Ver menos" : "Ver más"}
+          </button>
+
+          <Link to={`/detalle/${datos.id}`} className="btn btn-primary">
+            Detalle
+          </Link>
+
+          <button className="btn alert-primary">🩶</button>
         </div>
-
-        <button className="boton-vermas" onClick={this.toggleMostrar}>
-          {this.state.mostrar ? "Ver menos" : "Ver más"}
-        </button>
-
-        <Link to={`/detalle/${datos.id}`}>
-          <button className="boton-vermas">Ir a detalle</button>
-        </Link>
       </article>
     );
   }

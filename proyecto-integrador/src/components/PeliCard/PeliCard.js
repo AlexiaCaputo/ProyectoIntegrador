@@ -30,39 +30,38 @@ class PeliCard extends Component {
   render() {
     return (
       <main>
-        <section>
-          <h2>Películas más populares</h2>
-          <div className="card-container">
-            {this.state.populares.length === 0 ? (
-              <p>Cargando...</p>
-            ) : (
-              this.state.populares.slice(0, 4).map((pelicula) => (
-                <Peli key={pelicula.id} datos={pelicula} />
-              ))
-            )}
-          </div>
+        <h2 className="alert alert-primary">Películas populares</h2>
 
-          <Link to="/peliculas">
-            <button className="boton-vermas">Ver más de esta sección</button>
-          </Link>
+        <section className="row cards" id="movies">
+          {this.state.populares.length === 0 ? (
+            <p>Cargando...</p>
+          ) : (
+            this.state.populares.filter((pelicula, index) => index < 4).map((pelicula, idx) => (
+              <Peli key={pelicula.id + idx} datos={pelicula} />
+              ))
+          )}
         </section>
 
-        <section>
-          <h2>Películas en cartel</h2>
-          <div className="card-container">
-            {this.state.cartel.length === 0 ? (
-              <p>Cargando...</p>
-            ) : (
-              this.state.cartel.slice(0, 4).map((pelicula) => (
-                <Peli key={pelicula.id} datos={pelicula} />
-              ))
-            )}
-          </div>
+        <Link to="/peliculas">
+          <button className="btn btn-primary">Ver más de esta sección</button>
+        </Link>
 
-          <Link to="/cartel">
-            <button className="boton-vermas">Ver más de esta sección</button>
-          </Link>
+        <h2 className="alert alert-primary">Películas en cartel</h2>
+
+        <section className="row cards" id="movies">
+          {this.state.cartel.length === 0 ? (
+            <p>Cargando...</p>
+          ) : (
+            this.state.cartel.filter((pelicula, index) => index < 4).map((pelicula, idx) => (
+                <Peli key={pelicula.id + idx} datos={pelicula} />
+              ))
+          )}
         </section>
+
+        <Link to="/peliculas">
+          <button className="btn btn-primary">Ver más de esta sección</button>
+        </Link>
+
       </main>
     );
   }
