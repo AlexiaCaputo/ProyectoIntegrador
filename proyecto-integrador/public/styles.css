@@ -1,71 +1,93 @@
-*{
-    box-sizing: border-box;
+nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: #eee;
+    border-radius: 4px;
+    margin-bottom: 20px;
 }
-
-body{
-    background-color:lightgray; 
+.nav {
+    margin: 0 !important;
 }
-
-/* Navbar */
-nav{
+.nav a{
+    color: #444;
+    text-decoration: none;
+}
+.nav a:hover{
+    font-weight: bold;
+}
+.search-form, .filter-form {
+    padding: .5rem 0;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    column-gap: 5px;
+}
+.filter-form {
+    grid-template-columns: 1fr;
+}
+.search-form .btn-sm{
+    line-height: 1;
+    font-size: 0.9rem;
+}
+.search-form input,
+.filter-form input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding-top: 3px;
+    vertical-align: middle;
+    line-height: 1;
+    font-size: 1rem;
+    padding-bottom: 4px;
+}
+.filter-form input {
+    line-height: 1.5;
+}
+.cards {
+    padding: 0.75rem 1.25rem;
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
-    background-color: lightblue;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2%;
 }
-
-/* Footer */
-
-footer {
-    background-color: lightblue;
-    text-align: center;
-    padding: 20px;
-    width: 100%;
+.cardBody {
     margin-top: 20px;
 }
-
-/*Home */
-
-.input-busqueda{
-    text-align: center;
-    padding: 20px;
+.single-card-people {
+    width: 19%;
+}
+.single-card-movie {
+    width: 24%;
+}
+.single-card-playing {
+    width: 15%;
+}
+#now-playing .card-text{
+    height: 100px;
+    overflow: hidden;
+}
+.single-card-tv {
+    width: 19%;
+}
+.tv-show .card-text{
+    height: 100px;
+    overflow: hidden;
+}
+.single-card-on-air{
+    width: 15%;
+}
+#on-air-today .card-text{
+    height: 100px;
+    overflow: hidden;
 }
 
-.card-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: flex-start;
-    flex-wrap: wrap;
+.all-movies .single-card-movie {
+    width: 15%;
 }
 
-.character-card{
-    padding: 10px;
-    margin-bottom: 20px;
-    background: #fff;
-    width: 350px;
-    border-radius: 5px;
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15);
+@media(min-width: 765px){
+    nav {
+        grid-template-columns: 1fr;
     }
-
-.character-card img{
-    width: 100%;
-    margin-bottom: 20px;
-    }
-
-.oculto {
-        display: none;
-      }
-      
-.visible {
-        display: block;
-        width: 100%;
-      }
-
-.boton-vermas{
-    padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 8px;
 }
+

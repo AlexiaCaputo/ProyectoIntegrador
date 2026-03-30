@@ -1,5 +1,5 @@
-function Peli() {
-  return <h1>Películas</h1>;
+function Peliculas() {
+    return <h1>Peliculas</h1>
 }
 
-export default Peli;
+export default Peliculas
