@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Detalle from "../Detalle/Detalle";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
   
@@ -72,11 +74,14 @@ class Home extends Component {
         
             <h3>{pelicula.title}</h3>
             <div className={this.state.mostrar === pelicula.id ? "visible" : "oculto"}> <p> {pelicula.overview} </p> </div>
-            <button onClick={() => this.toggleMostrar(pelicula.id)}> {this.state.mostrar === pelicula.id ? "Ver menos" : "Ver más"} </button>
-        
+            <button className="boton-vermas" onClick={() => this.toggleMostrar(pelicula.id)}> {this.state.mostrar === pelicula.id ? "Ver menos" : "Ver más"} </button>
+
+            <Link to={`/detalle/${pelicula.id}`}> <button className="boton-vermas">Ir a detalle</button></Link>
           </article>
-          
           ))}
+          
+          <Link to={`/peliculas`}> <button className="boton-vermas">Ver más de esta sección</button></Link>
+
           </div>
         </section>
 
@@ -88,10 +93,15 @@ class Home extends Component {
               <img src={`https://image.tmdb.org/t/p/w342${pelicula.poster_path}`} alt={pelicula.title} />
               <h3>{pelicula.title}</h3>
             <div className={this.state.mostrar === pelicula.id ? "visible" : "oculto"}> <p> {pelicula.overview} </p> </div>
-            <button onClick={() => this.toggleMostrar(pelicula.id)}> {this.state.mostrar === pelicula.id ? "Ver menos" : "Ver más"} </button>
+            <button className="boton-vermas" onClick={() => this.toggleMostrar(pelicula.id)}> {this.state.mostrar === pelicula.id ? "Ver menos" : "Ver más"} </button>
+            <Link to={`/detalle/${pelicula.id}`}> <button className="boton-vermas" >Ir a detalle</button></Link>
             </article>
           ))}
+          
+          <Link  to={`/peliculas`}> <button className="boton-vermas">Ver más de esta sección</button></Link>
+
           </div>
+          
         </section>
       </main>
     );
