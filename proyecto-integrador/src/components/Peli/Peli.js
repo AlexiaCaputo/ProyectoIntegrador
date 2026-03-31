@@ -30,11 +30,11 @@ class Peli extends Component {
           </div>
 
           <button className="btn btn-primary" onClick={this.toggleMostrar}>
-            {this.state.mostrar ? "Ver menos" : "Ver más"}
+            {this.state.mostrar ? "Ver menos" : "Ver descripción"}
           </button>
 
           <Link to={`/detalle/${datos.id}`} className="btn btn-primary">
-            Detalle
+            Ir a detalle
           </Link>
 
           <button className="btn alert-primary">🩶</button>
