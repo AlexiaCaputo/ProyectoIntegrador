@@ -7,11 +7,9 @@ class Footer extends Component {
       integrantes: [
         {
           nombre: "Alexia Caputo",
-          mail: "caputoa@udesa.com.ar"
         },
         {
           nombre: "Toyah Dietrich Oxenford",
-          mail: "tdietrichoxenford@udesa.com.ar"
         }
       ]
     };
@@ -23,8 +21,7 @@ class Footer extends Component {
         
         {this.state.integrantes.map((integrante, idx) => (
           <div key={idx}>
-            <p className="mb-0"><strong>{integrante.nombre}</strong></p>
-            <p className="mb-0">{integrante.mail}</p>
+            <p className="mb-0">{integrante.nombre}</p>
           </div>
         ))}
 
