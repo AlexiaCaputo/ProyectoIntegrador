@@ -65,7 +65,7 @@ class Login extends Component {
             </form>
 
             <p className="mt-3 text-center">
-              ¿No tenés cuenta? <Link to="/register">Registrarse</Link>
+              ¿No tenés cuenta? <Link to="/registro">Registrarse</Link>
             </p>
           </div>
         </div>

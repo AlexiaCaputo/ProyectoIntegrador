@@ -6,21 +6,21 @@ import Detalle from './screen/Detalle/Detalle';
 import Fav from './screen/Favoritos/Favoritos';
 import Resultados from './screen/Resultados/Resultados';
 import NotFound from './screen/NotFound/NotFound';
-import Crear from './screen/CrearCuenta/CrearCuenta';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Peliculas from './screen/Peliculas/Peliculas';
+import CrearCuenta from './screen/CrearCuenta/CrearCuenta';
 
 
 
 function App() {
   return (
-    <body className="container">
+    <div className="container">
       <Navbar/>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
-        <Route path="/register" component={Crear} />
+        <Route path="/registro" component={CrearCuenta} />
         <Route path="/peliculas" component={Peliculas} />
         <Route path="/detalle/:id" component={Detalle} />
         <Route path="/favoritos" component={Fav} />
@@ -28,7 +28,7 @@ function App() {
         <Route path="*" component={NotFound} />
       </Switch>
       <Footer />
-    </body>
+    </div>
   );   
 }
 export default App;
