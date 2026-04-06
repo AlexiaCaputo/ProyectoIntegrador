@@ -42,7 +42,7 @@ class PeliCard extends Component {
           )}
         </section>
 
-        <Link to="/peliculas">
+        <Link to="/peliculas/populares">
           <button className="btn btn-primary">Ver más de esta sección</button>
         </Link>
 
@@ -58,7 +58,7 @@ class PeliCard extends Component {
           )}
         </section>
 
-        <Link to="/peliculas">
+        <Link to="/peliculas/cartel">
           <button className="btn btn-primary">Ver más de esta sección</button>
         </Link>
 
