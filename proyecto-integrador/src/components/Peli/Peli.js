@@ -16,24 +16,23 @@ class Peli extends Component {
   };
 
   render() {
-    const datos = this.props.datos;
     return (
       <article className="single-card-movie">
 
-        <img className="card-img-top" src={`https://image.tmdb.org/t/p/w342${datos.poster_path}`} alt={datos.title} />
+        <img className="card-img-top" src={`https://image.tmdb.org/t/p/w342${this.props.datos.poster_path}`} alt={this.props.datos.title} />
 
         <div className="cardBody">
-          <h5 className="card-title">{datos.title}</h5>
+          <h5 className="card-title">{this.props.datos.title}</h5>
 
           <div className={this.state.mostrar ? "visible" : "oculto"}>
-            <p className="card-text">{datos.overview}</p>
+            <p className="card-text">{this.props.datos.overview}</p>
           </div>
 
           <button className="btn btn-primary" onClick={this.toggleMostrar}>
             {this.state.mostrar ? "Ver menos" : "Ver descripción"}
           </button>
 
-          <Link to={`/detalle/${datos.id}`} className="btn btn-primary">
+          <Link to={`/detalle/${this.props.datos.id}`} className="btn btn-primary">
             Ir a detalle
           </Link>
 

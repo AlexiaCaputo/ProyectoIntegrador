@@ -25,14 +25,14 @@ class Formulario extends Component {
       <form
         className="search-form"
         onSubmit={(event) => this.evitarSubmit(event)}
-      >
+        >
         <input
           type="text"
           name="searchData"
           placeholder="Buscar..."
           value={this.state.busqueda}
           onChange={(event) => this.controlarCambios(event)}
-        />
+           />
 
         <button type="submit" className="btn btn-success btn-sm">
           Buscar
