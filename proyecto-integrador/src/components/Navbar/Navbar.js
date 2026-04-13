@@ -7,8 +7,8 @@ class Navbar extends Component {
     this.state = {
       links: [
         { nombre: "Home", path: "/" },
-        { nombre: "Películas", path: "/peliculas" },
-        { nombre: "Series", path: "/series" },
+        { nombre: "Películas populares", path: "/peliculas/populares" },
+        { nombre: "Películas en cartel", path: "/peliculas/cartel" },
         { nombre: "Favoritas", path: "/favoritas" },
         { nombre: "Registro", path: "/registro", claseExtra: "ml-auto" },
         { nombre: "Login", path: "/login" }
