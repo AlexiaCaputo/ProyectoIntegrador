@@ -22,9 +22,9 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/registro" component={CrearCuenta} />
         <Route path="/peliculas/:tipo" component={Peliculas} />
-        <Route path="/detalle/:id" component={Detalle} />
-        <Route path="/favoritos" component={Fav} />
-        <Route path="/resultados/:busqueda" component={Resultados} />
+        <Route path="/detalle/:tipo/:id" component={Detalle} />
+        <Route path="/favoritas" component={Fav} />
+        <Route path="/resultados/:tipo/:busqueda" component={Resultados} />
         <Route path="*" component={NotFound} />
       </Switch>
       <Footer />

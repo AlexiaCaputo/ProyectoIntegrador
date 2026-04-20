@@ -37,7 +37,7 @@ class PeliCard extends Component {
             <p>Cargando...</p>
           ) : (
             this.state.populares.filter((pelicula, index) => index < 4).map((pelicula, idx) => (
-              <Peli key={pelicula.id + idx} datos={pelicula} />
+              <Peli key={pelicula.id + idx} datos={pelicula} tipo="movie"/>
               ))
           )}
         </section>
@@ -53,7 +53,7 @@ class PeliCard extends Component {
             <p>Cargando...</p>
           ) : (
             this.state.cartel.filter((pelicula, index) => index < 4).map((pelicula, idx) => (
-                <Peli key={pelicula.id + idx} datos={pelicula} />
+                <Peli key={pelicula.id + idx} datos={pelicula} tipo="movie" />
               ))
           )}
         </section>

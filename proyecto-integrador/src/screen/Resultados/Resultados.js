@@ -9,7 +9,7 @@ class Resultados extends Component{
       }
   }
   componentDidMount(){
-      fetch(`https://api.themoviedb.org/3/search/movie?api_key=fa048358caf9c6d86d3611e5961e0b6d&query=${this.props.match.params.busqueda}`)
+      fetch(`https://api.themoviedb.org/3/search/${this.props.match.params.tipo}?api_key=fa048358caf9c6d86d3611e5961e0b6d&query=${this.props.match.params.busqueda}`)
           .then(response => response.json())
           .then(data=> this.setState(
               {datos: data.results}
@@ -21,7 +21,7 @@ class Resultados extends Component{
           <section className="row cards" id="movies">
           {this.state.datos.length === 0?
           <h3>Cargando...</h3> :
-          this.state.datos.map((datos,idx) => <Peli key={datos.id} datos={datos}/>)}
+          this.state.datos.map((datos,idx) => <Peli key={datos.id + idx} datos={datos} tipo={this.props.match.params.tipo} />)}
          </section>
       )
   }

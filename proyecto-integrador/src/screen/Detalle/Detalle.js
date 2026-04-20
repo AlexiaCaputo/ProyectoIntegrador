@@ -4,14 +4,15 @@ class Detalle extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      detalle: null
+      detalle: null,
+      esFavorito: false
     };
   }
 
   componentDidMount() {
-    let id = this.props.match.params.id;
-
-    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=fa048358caf9c6d86d3611e5961e0b6d`)
+    fetch(
+      `https://api.themoviedb.org/3/${this.props.match.params.tipo}/${this.props.match.params.id}?api_key=fa048358caf9c6d86d3611e5961e0b6d`
+    )
       .then((response) => response.json())
       .then((data) => {
         this.setState({
@@ -19,7 +20,80 @@ class Detalle extends Component {
         });
       })
       .catch((error) => console.log(error));
+
+    let claveStorage =
+      this.props.match.params.tipo === "tv"
+        ? "favoritosSeries"
+        : "favoritosPeliculas";
+
+    let favoritos = localStorage.getItem(claveStorage);
+
+    if (favoritos !== null) {
+      favoritos = JSON.parse(favoritos);
+
+      let repetidos = favoritos.filter(
+        (item) => item == this.props.match.params.id
+      );
+
+      if (repetidos.length > 0) {
+        this.setState({
+          esFavorito: true
+        });
+      }
+    }
   }
+
+  agregarFavorito = () => {
+    let claveStorage =
+      this.props.match.params.tipo === "tv"
+        ? "favoritosSeries"
+        : "favoritosPeliculas";
+
+    let favoritos = localStorage.getItem(claveStorage);
+
+    if (favoritos === null) {
+      favoritos = [];
+    } else {
+      favoritos = JSON.parse(favoritos);
+    }
+
+    let repetidos = favoritos.filter(
+      (item) => item == this.props.match.params.id
+    );
+
+    if (repetidos.length === 0) {
+      favoritos.push(this.props.match.params.id);
+
+      localStorage.setItem(claveStorage, JSON.stringify(favoritos));
+
+      this.setState({
+        esFavorito: true
+      });
+    }
+  };
+
+  eliminarFavorito = () => {
+    let claveStorage =
+      this.props.match.params.tipo === "tv"
+        ? "favoritosSeries"
+        : "favoritosPeliculas";
+
+    let favoritos = localStorage.getItem(claveStorage);
+
+    if (favoritos !== null) {
+      favoritos = JSON.parse(favoritos);
+
+      let filtrados = favoritos.filter(
+        (item) => item != this.props.match.params.id
+      );
+
+      localStorage.setItem(claveStorage, JSON.stringify(filtrados));
+
+      this.setState({
+        esFavorito: false
+      });
+    }
+  };
 
   render() {
     if (this.state.detalle === null) {
@@ -28,23 +102,54 @@ class Detalle extends Component {
 
     return (
       <div>
-        <h2 className="alert alert-primary">Detalle de la película</h2>
+        <h2 className="alert alert-primary">
+          {this.props.match.params.tipo === "movie"
+            ? "Detalle de la película"
+            : "Detalle de la serie"}
+        </h2>
 
         <section className="row">
           <article className="col-md-4">
             <img
               src={`https://image.tmdb.org/t/p/w500${this.state.detalle.poster_path}`}
-              alt={this.state.detalle.title}
+              alt={
+                this.state.detalle.title
+                  ? this.state.detalle.title
+                  : this.state.detalle.name
+              }
               className="card-img-top"
             />
           </article>
 
           <article className="col-md-8">
-            <h3>{this.state.detalle.title}</h3>
-            <p><strong>Calificación:</strong> {this.state.detalle.vote_average}</p>
-            <p><strong>Fecha de estreno:</strong> {this.state.detalle.release_date}</p>
-            <p><strong>Duración:</strong> {this.state.detalle.runtime} minutos</p>
-            <p><strong>Sinopsis:</strong> {this.state.detalle.overview}</p>
+            <h3>
+              {this.state.detalle.title
+                ? this.state.detalle.title
+                : this.state.detalle.name}
+            </h3>
+
+            <p>
+              <strong>Calificación:</strong> {this.state.detalle.vote_average}
+            </p>
+
+            <p>
+              <strong>Fecha de estreno:</strong>{" "}
+              {this.state.detalle.release_date
+                ? this.state.detalle.release_date
+                : this.state.detalle.first_air_date}
+            </p>
+
+            {this.props.match.params.tipo === "movie" && (
+              <p>
+                <strong>Duración: </strong>
+                {this.state.detalle.runtime} minutos
+              </p>
+            )}
+
+            <p>
+              <strong>Sinopsis:</strong> {this.state.detalle.overview}
+            </p>
+
             <p>
               <strong>Géneros:</strong>{" "}
               {this.state.detalle.genres.map((genero, idx) => (
@@ -52,9 +157,21 @@ class Detalle extends Component {
               ))}
             </p>
 
-            <button className="btn btn-primary">
-              Agregar a favoritos
-            </button>
+            {this.state.esFavorito ? (
+              <button
+                className="btn alert-primary"
+                onClick={this.eliminarFavorito}
+              >
+                ❤️
+              </button>
+            ) : (
+              <button
+                className="btn alert-primary"
+                onClick={this.agregarFavorito}
+              >
+                🩶
+              </button>
+            )}
           </article>
         </section>
       </div>
