@@ -19,6 +19,7 @@ class Navbar extends Component {
   render() {
     return (
       <nav>
+                <h1>Udesa Movies</h1>
         <ul className="nav nav-tabs my-4">
           {this.state.links.map((link, idx) => (
             <NavbarBebe key={link.nombre + idx} datos={link} />
