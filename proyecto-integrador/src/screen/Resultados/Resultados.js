@@ -1,30 +1,30 @@
-import { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Peli from "../../components/Peli/Peli";
 
-class Resultados extends Component{
-  constructor(props){
-      super(props)
-      this.state={
-          datos: []
-      }
-  }
-  componentDidMount(){
-      fetch(`https://api.themoviedb.org/3/search/${this.props.match.params.tipo}?api_key=fa048358caf9c6d86d3611e5961e0b6d&query=${this.props.match.params.busqueda}`)
-          .then(response => response.json())
-          .then(data=> this.setState(
-              {datos: data.results}
-          ))
-          .catch(error => console.log(error))
-  }
-  render(){
-      return(
-          <section className="row cards" id="movies">
-          {this.state.datos.length === 0?
-          <h3>Cargando...</h3> :
-          this.state.datos.map((datos,idx) => <Peli key={datos.id + idx} datos={datos} tipo={this.props.match.params.tipo} />)}
-         </section>
-      )
-  }
+function Resultados(props) {
+  let [datos, setDatos] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://api.themoviedb.org/3/search/${props.match.params.tipo}?api_key=fa048358caf9c6d86d3611e5961e0b6d&query=${props.match.params.busqueda}` )
+      .then((response) => response.json())
+      .then((data) => {
+        setDatos(data.results); })
+      .catch((error) => console.log(error)); }, []);
+
+  return (
+    <section className="row cards" id="movies">
+      {datos.length === 0 ? (
+        <h3>Cargando...</h3>
+      ) : (
+        datos.map((dato, idx) => (
+          <Peli
+            key={dato.id + idx}
+            datos={dato}
+            tipo={props.match.params.tipo} />
+        ))
+      )}
+    </section>
+  );
 }
 
-export default Resultados
+export default Resultados;

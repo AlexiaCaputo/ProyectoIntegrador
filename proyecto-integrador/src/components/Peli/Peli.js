@@ -1,117 +1,116 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-class Peli extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mostrar: false,
-      esFavorito: false
-    };
-  }
+function Peli(props) {
+  let [mostrar, setMostrar] = useState(false);
+  let [esFavorito, setEsFavorito] = useState(false);
 
-  componentDidMount() {
-    let claveStorage =
-      this.props.tipo === "tv" ? "favoritosSeries" : "favoritosPeliculas";
+  useEffect(() => {
+    let claveStorage = props.tipo === "tv" ? "favoritosSeries" : "favoritosPeliculas";
+
     let favoritos = localStorage.getItem(claveStorage);
+
     if (favoritos !== null) {
       favoritos = JSON.parse(favoritos);
+
       let repetidos = favoritos.filter(
-        (item) => item === this.props.datos.id
-      );
+        (item) => item === props.datos.id );
+
       if (repetidos.length > 0) {
-        this.setState({
-          esFavorito: true
-        });
-      }
-    }
-  }
+        setEsFavorito(true); }}
+  }, []);
 
-  toggleMostrar = () => {
-    this.setState({
-      mostrar: !this.state.mostrar
-    });
-  };
+  const toggleMostrar = () => {
+    setMostrar(!mostrar); };
 
-  agregarFavorito = () => {
+  const agregarFavorito = () => {
     let claveStorage =
-      this.props.tipo === "tv" ? "favoritosSeries" : "favoritosPeliculas";
+      props.tipo === "tv" ? "favoritosSeries" : "favoritosPeliculas";
+
     let favoritos = localStorage.getItem(claveStorage);
+
     if (favoritos === null) {
-      favoritos = [];
-    } else {
-      favoritos = JSON.parse(favoritos);
-    }
+      favoritos = []; } else {
+      favoritos = JSON.parse(favoritos); }
+
     let repetidos = favoritos.filter(
-      (item) => item === this.props.datos.id
-    );
+      (item) => item === props.datos.id );
 
     if (repetidos.length === 0) {
-      favoritos.push(this.props.datos.id);
-      localStorage.setItem(claveStorage, JSON.stringify(favoritos));
-      this.setState({
-        esFavorito: true
-      });
-    }
-  };
+      favoritos.push(props.datos.id);
 
-  eliminarFavorito = () => {
+      localStorage.setItem(claveStorage, JSON.stringify(favoritos) );
+      setEsFavorito(true);
+    } };
+
+  const eliminarFavorito = () => {
     let claveStorage =
-      this.props.tipo === "tv" ? "favoritosSeries" : "favoritosPeliculas";
+      props.tipo === "tv" ? "favoritosSeries" : "favoritosPeliculas";
+
     let favoritos = localStorage.getItem(claveStorage);
+
     if (favoritos !== null) {
       favoritos = JSON.parse(favoritos);
+
       let filtrados = favoritos.filter(
-        (item) => item !== this.props.datos.id
-      );
-      localStorage.setItem(claveStorage, JSON.stringify(filtrados));
-      this.setState({
-        esFavorito: false
-      });
-      if (this.props.actualizarFav) {
-        this.props.actualizarFav(this.props.datos.id);
-      }
+        (item) => item !== props.datos.id);
+
+      localStorage.setItem( claveStorage, JSON.stringify(filtrados) );
+
+      setEsFavorito(false);
+
+      if (props.actualizarFav) {
+        props.actualizarFav(props.datos.id); }
     }
   };
 
-  render() {
-    return (
-      <article className="single-card-movie">
-        <img
-          className="card-img-top"
-          src={`https://image.tmdb.org/t/p/w342${this.props.datos.poster_path}`}
-          alt={this.props.datos.title ? this.props.datos.title : this.props.datos.name} />
+  return (
+    <article className="single-card-movie">
+      <img
+        className="card-img-top"
+        src={`https://image.tmdb.org/t/p/w342${props.datos.poster_path}`}
+        alt={props.datos.title ? props.datos.title : props.datos.name} />
 
-        <div className="cardBody">
-          <h5 className="card-title">
-            {this.props.datos.title ? this.props.datos.title : this.props.datos.name}
-          </h5>
+      <div className="cardBody">
+        <h5 className="card-title">
+          {props.datos.title ? props.datos.title : props.datos.name}
+        </h5>
 
-          <div className={this.state.mostrar ? "visible" : "oculto"}>
-            <p className="card-text">{this.props.datos.overview}</p>
-          </div>
-
-          <button className="btn btn-primary" onClick={this.toggleMostrar}>
-            {this.state.mostrar ? "Ver menos" : "Ver descripción"}
-          </button>
-
-          <Link to={`/detalle/${this.props.tipo}/${this.props.datos.id}`} className="btn btn-primary">
-            Ir a detalle
-          </Link>
-
-          {this.state.esFavorito ? (
-            <button className="btn alert-primary" onClick={this.eliminarFavorito}>
-              ❤️
-            </button>
-          ) : (
-            <button className="btn alert-primary" onClick={this.agregarFavorito}>
-              🩶
-            </button>
-          )}
+        <div className={mostrar ? "visible" : "oculto"}>
+          <p className="card-text">
+            {props.datos.overview}
+          </p>
         </div>
-      </article>
-    );
-  }
+
+        <button
+          className="btn btn-primary"
+          onClick={toggleMostrar}>
+          {mostrar ? "Ver menos" : "Ver descripción"}
+        </button>
+
+        <Link
+          to={`/detalle/${props.tipo}/${props.datos.id}`}
+          className="btn btn-primary" >
+          Ir a detalle
+        </Link>
+
+        {esFavorito ? (
+          <button
+            className="btn alert-primary"
+            onClick={eliminarFavorito} >
+            ❤️
+          </button>
+        ) : (
+          <button
+            className="btn alert-primary"
+            onClick={agregarFavorito}
+          >
+            🩶
+          </button>
+        )}
+      </div>
+    </article>
+  );
 }
 
 export default Peli;

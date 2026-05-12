@@ -1,70 +1,55 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 
-class Formulario extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      busqueda: "",
-      tipo: "movie"
-    };
-  }
+function Formulario(props) {
+  let [busqueda, setBusqueda] = useState("");
+  let [tipo, setTipo] = useState("movie");
 
-  evitarSubmit(event) {
+  function evitarSubmit(event) {
     event.preventDefault();
-    this.props.history.push("/resultados/" + this.state.tipo + "/" + this.state.busqueda);
-  }
+    props.history.push( "/resultados/" + tipo + "/" + busqueda
+    ); }
 
-  controlarCambios(event) {
-    this.setState({
-      busqueda: event.target.value
-    });
-  }
+  function controlarCambios(event) {
+    setBusqueda(event.target.value); }
 
-  elegirPelicula() {
-    this.setState({
-      tipo: "movie"
-    });
-  }
+  function elegirPelicula() {
+    setTipo("movie"); }
 
-  elegirSerie() {
-    this.setState({
-      tipo: "tv"
-    });
-  }
+  function elegirSerie() {
+    setTipo("tv"); }
 
-  render() {
-    return (
-      <form
-        className="search-form"
-        onSubmit={(event) => this.evitarSubmit(event)}
-        >
-        <input
-          type="text"
-          name="searchData"
-          placeholder="Buscar..."
-          value={this.state.busqueda}
-          onChange={(event) => this.controlarCambios(event)}
-           />
+  return (
+    <form
+      className="search-form"
+      onSubmit={evitarSubmit} >
+      <input
+        type="text"
+        name="searchData"
+        placeholder="Buscar..."
+        value={busqueda}
+        onChange={controlarCambios} />
 
-        <button
-          type="button"
-          onClick={() => this.elegirPelicula()}>
-          Películas
-        </button>
+      <button
+        type="button"
+        onClick={elegirPelicula} >
+        Películas
+      </button>
 
-        <button
-          type="button"
-          onClick={() => this.elegirSerie()}>
-          Series
-        </button>
+      <button
+        type="button"
+        onClick={elegirSerie} >
+        Series
+      </button>
 
-        <button type="submit" className="btn btn-success btn-sm">
-          Buscar
-        </button>
-      </form>
-    );
-  }
+      <button
+        type="submit"
+        className="btn btn-success btn-sm" >
+        Buscar
+      </button>
+
+    </form>
+  );
 }
 
 export default withRouter(Formulario);

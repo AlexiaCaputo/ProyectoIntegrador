@@ -1,115 +1,92 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Peli from "../../components/Peli/Peli";
 
-class Fav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      favoritosPeliculas: [],
-      favoritosSeries: []
-    };
-  }
+function Fav() {
+  let [favoritosPeliculas, setFavoritosPeliculas] = useState([]);
+  let [favoritosSeries, setFavoritosSeries] = useState([]);
 
-  componentDidMount() {
-    let favoritosPeliculas = localStorage.getItem("favoritosPeliculas");
-    let favoritosSeries = localStorage.getItem("favoritosSeries");
+  useEffect(() => {
+    let favPeliculas = localStorage.getItem("favoritosPeliculas");
+    let favSeries = localStorage.getItem("favoritosSeries");
 
-    if (favoritosPeliculas !== null) {
-      favoritosPeliculas = JSON.parse(favoritosPeliculas);
-
+    if (favPeliculas !== null) {
+      favPeliculas = JSON.parse(favPeliculas);
       let peliculas = [];
 
-      favoritosPeliculas.map((id) => {
+      favPeliculas.map((id) => {
         fetch(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=fa048358caf9c6d86d3611e5961e0b6d`)
+          `https://api.themoviedb.org/3/movie/${id}?api_key=fa048358caf9c6d86d3611e5961e0b6d`
+        )
           .then((response) => response.json())
-          .then((data) => {
-            peliculas.push(data);
-            this.setState({
-              favoritosPeliculas: peliculas
-            });
-          })
-          .catch((error) => console.log(error));
-      });
+          .then((data) => {peliculas.push(data); setFavoritosPeliculas(peliculas); })
+          .catch((error) => console.log(error)); });
     }
 
-    if (favoritosSeries !== null) {
-      favoritosSeries = JSON.parse(favoritosSeries);
+    if (favSeries !== null) {
+      favSeries = JSON.parse(favSeries);
 
       let series = [];
-
-      favoritosSeries.map((id) => {
+      favSeries.map((id) => {
         fetch(
-          `https://api.themoviedb.org/3/tv/${id}?api_key=fa048358caf9c6d86d3611e5961e0b6d`)
+          `https://api.themoviedb.org/3/tv/${id}?api_key=fa048358caf9c6d86d3611e5961e0b6d` )
           .then((response) => response.json())
-          .then((data) => {
-            series.push(data);
-            this.setState({
-              favoritosSeries: series
-            });
+          .then((data) => { series.push(data); setFavoritosSeries(series);
           })
           .catch((error) => console.log(error));
       });
-    }
-  }
+    } }, []);
 
-  actualizarFavPeliculas = (id) => {
-    let filtrados = this.state.favoritosPeliculas.filter(
+  let actualizarFavPeliculas = (id) => {
+    let filtrados = favoritosPeliculas.filter(
       (item) => item.id !== id
     );
 
-    this.setState({
-      favoritosPeliculas: filtrados
-    });
+    setFavoritosPeliculas(filtrados);
   };
 
-  actualizarFavSeries = (id) => {
-    let filtrados = this.state.favoritosSeries.filter(
+  let actualizarFavSeries = (id) => {
+    let filtrados = favoritosSeries.filter(
       (item) => item.id !== id
     );
 
-    this.setState({
-      favoritosSeries: filtrados
-    });
+    setFavoritosSeries(filtrados);
   };
 
-  render() {
-    return (
-      <div>
-        <h2 className="alert alert-primary">Películas favoritas</h2>
+  return (
+    <div>
+      <h2 className="alert alert-primary">Películas favoritas</h2>
 
-        <section className="row cards">
-          {this.state.favoritosPeliculas.length === 0 ? (
-            <p>No tenés películas favoritas.</p>
-          ) : (
-            this.state.favoritosPeliculas.map((peli, idx) => (
-              <Peli
-                key={peli.id + idx}
-                datos={peli}
-                tipo="movie"
-                actualizarFav={this.actualizarFavPeliculas} />
-            ))
-          )}
-        </section>
+      <section className="row cards">
+        {favoritosPeliculas.length === 0 ? (
+          <p>No tenés películas favoritas.</p>
+        ) : (
+          favoritosPeliculas.map((peli, idx) => (
+            <Peli
+              key={peli.id + idx}
+              datos={peli}
+              tipo="movie"
+              actualizarFav={actualizarFavPeliculas} />
+          ))
+        )}
+      </section>
 
-        <h2 className="alert alert-primary">Series favoritas</h2>
+      <h2 className="alert alert-primary">Series favoritas</h2>
 
-        <section className="row cards">
-          {this.state.favoritosSeries.length === 0 ? (
-            <p>No tenés series favoritas.</p>
-          ) : (
-            this.state.favoritosSeries.map((serie, idx) => (
-              <Peli
-                key={serie.id + idx}
-                datos={serie}
-                tipo="tv"
-                actualizarFav={this.actualizarFavSeries}  />
-            ))
-          )}
-        </section>
-      </div>
-    );
-  }
+      <section className="row cards">
+        {favoritosSeries.length === 0 ? (
+          <p>No tenés series favoritas.</p>
+        ) : (
+          favoritosSeries.map((serie, idx) => (
+            <Peli
+              key={serie.id + idx}
+              datos={serie}
+              tipo="tv"
+              actualizarFav={actualizarFavSeries} />
+          ))
+        )}
+      </section>
+    </div>
+  );
 }
 
 export default Fav;
